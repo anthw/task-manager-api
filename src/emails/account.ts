@@ -2,7 +2,7 @@ import sgMail from '@sendgrid/mail'
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-export const sendWelcomeEmail = (email, name) => {
+export const sendWelcomeEmail = (email: string, name: string) => {
   sgMail.send({
     to: email,
     from: 'anthwinter@gmail.com',
@@ -11,7 +11,7 @@ export const sendWelcomeEmail = (email, name) => {
   })
 }
 
-export const sendDeleteEmail = (email, name) => {
+export const sendDeleteEmail = (email: string, name: string) => {
   sgMail.send({
     to: email,
     from: 'anthwinter@gmail.com',

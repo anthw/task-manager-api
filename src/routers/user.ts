@@ -6,14 +6,14 @@ import User from '../models/user'
 import auth from '../middleware/auth'
 import { sendWelcomeEmail, sendDeleteEmail } from '../emails/account'
 
-const router = new express.Router()
+const router = express.Router()
 const upload = multer({
   limits: {
     fileSize: 1000000,
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error('Upload is not one of .jpg, .jpeg or .png'))
+      cb(new Error('Upload is not one of .jpg, .jpeg or .png'), undefined)
     }
 
     cb(undefined, true)
@@ -121,7 +121,7 @@ router.post(
   upload.single('avatar'),
   async (req, res) => {
     const buffer = await sharp(req.file.buffer)
-      .resize({ width: 250, height: 250 })
+      .resize(250, 250)
       .png()
       .toBuffer()
 

@@ -1,5 +1,11 @@
 import mongoose from 'mongoose'
 
+export interface ITask extends mongoose.Document {
+  description: string,
+  complete: boolean,
+  owner: typeof mongoose.Schema.Types.ObjectId,
+}
+
 const taskSchema = new mongoose.Schema(
   {
     description: {
@@ -22,6 +28,6 @@ const taskSchema = new mongoose.Schema(
   }
 )
 
-const Task = mongoose.model('Task', taskSchema)
+const Task = mongoose.model<ITask>('Task', taskSchema)
 
 export default Task

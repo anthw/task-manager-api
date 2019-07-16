@@ -2,15 +2,11 @@ import express from 'express'
 import Task from '../models/task'
 import auth from '../middleware/auth'
 
-const router = new express.Router()
+const router = express.Router()
 
 router.get('/tasks', auth, async (req, res) => {
-  const match = {}
+  const completed = req.query
   const sort = {}
-
-  if (req.query.completed) {
-    match.completed = req.query.completed === 'true'
-  }
 
   if (req.query.sort) {
     const sortParts = req.query.sort.split(':')
@@ -21,7 +17,7 @@ router.get('/tasks', auth, async (req, res) => {
   try {
     await req.user.populate({
       path: 'tasks',
-      match,
+      match: completed ? { completed: completed === 'true' } : {},
       options: {
         limit: parseInt(req.query.limit),
         skip: parseInt(req.query.skip),

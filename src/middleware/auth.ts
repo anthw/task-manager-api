@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
+import { Request, Response, NextFunction } from 'express'
 
-const auth = async (req, res, next) => {
+const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // We only want the token, strip the rest.
     const token = req.header('Authorization').replace('Bearer ', '')
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as { _id: string }
     const user = await User.findOne({ _id: decodedToken._id, 'tokens.token': token })
 
     if (!user) {
