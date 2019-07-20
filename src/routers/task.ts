@@ -5,7 +5,7 @@ import auth from '../middleware/auth'
 const router = express.Router()
 
 router.get('/tasks', auth, async (req, res) => {
-  const completed = req.query
+  const { completed } = req.query
   const sort = {}
 
   if (req.query.sort) {

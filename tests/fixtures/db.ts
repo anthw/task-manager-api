@@ -52,8 +52,8 @@ export const taskThree = {
 }
 
 export const setUpDatabase = async () => {
-  await User.deleteMany()
-  await Task.deleteMany()
+  await User.deleteMany({})
+  await Task.deleteMany({})
   await new User(userOne).save()
   await new User(userTwo).save()
   await new Task(taskOne).save()

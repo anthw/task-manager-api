@@ -1,10 +1,5 @@
 import mongoose from 'mongoose'
-
-export interface ITask extends mongoose.Document {
-  description: string,
-  complete: boolean,
-  owner: typeof mongoose.Schema.Types.ObjectId,
-}
+import { ITask } from '../../typings/task-manager-api/task'
 
 const taskSchema = new mongoose.Schema(
   {

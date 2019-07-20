@@ -1,31 +1,9 @@
-import mongoose, { Model } from 'mongoose'
+import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import Task from './task'
-
-import { ITask } from './task'
-
-export interface Token {
-  token: string
-}
-
-export interface IUser extends mongoose.Document {
-  _id: string,
-  name: string,
-  email: string,
-  password: string,
-  age: number,
-  tokens: Token[],
-  avatar: Buffer,
-  tasks: ITask[],
-  generateAuthToken: () => void,
-  toJSON: () => void,
-}
-
-export interface IUserModel extends Model<IUser> {
-  findByCredentials: (email: string, password: string) => IUser,
-}
+import { IUser, IUserModel } from '../../typings/task-manager-api/user'
 
 const userSchema = new mongoose.Schema(
   {
